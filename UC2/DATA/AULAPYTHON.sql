@@ -1,0 +1,47 @@
+SHOW DATABASES;
+CREATE database aula;
+SHOW DATABASES;
+USE aula;
+
+CREATE TABLE produtos (
+id SERIAL PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+categoria VARCHAR(50) NOT NULL,
+preco DECIMAL(10, 2) NOT NULL,
+estoque INT DEFAULT 0,
+ativo BOOLEAN DEFAULT TRUE,
+data_cadastro DATE DEFAULT CURRENT_DATE
+);
+SELECT * FROM PRODUTOS;
+INSERT INTO produtos (id, nome, categoria, preco, estoque, ativo, data_cadastro)
+VALUES (1,'Teclado Mecânico RGB', 'Periféricos', 289.90, 45, TRUE, '2026-01-15');
+
+SELECT * FROM PRODUTOS;
+
+INSERT INTO produtos (id, nome, categoria, preco, estoque) VALUES
+(2,'Monitor 27" 144Hz', 'Monitores', 1450.00, 15),
+(3,'Cadeira Ergonômica', 'Móveis', 890.00, 12),
+(4,'Fone Bluetooth Over-Ear', 'Áudio', 350.00, 0),
+(5,'Webcam Full HD 1080p', 'Periféricos', 210.00, 25),
+(6,'Microfone Condensador USB', 'Áudio', 310.00, 18),
+(7,'Cabo HDMI 2.1 2m', 'Cabos', 45.00, 150);
+
+SELECT * FROM PRODUTOS;
+
+UPDATE produtos SET preco = 269.90, estoque = 40 WHERE id = 1;
+
+UPDATE produtos
+SET preco = ROUND(preco *1.10 , 2)
+WHERE categoria = 'Periféricos' AND ativo = TRUE;
+
+UPDATE produtos SET ativo = FALSE WHERE estoque = 0
+
+DELETE FROM produtos WHERE ativo = FALSE AND estoque = 0;
+
+SELECT * FROM PRODUTOS; 
+SELECT nome, estoque FROM PRODUTOS;
+SELECT nome FROM produtos
+WHERE estoque > 20;
+
+SELECT id, nome, preco
+FROM produtos;

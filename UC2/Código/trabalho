@@ -1,0 +1,173 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+
+
+
+# Passo 2: Carrega a planilha principal com 1.500 ocorrências
+df_ocorrencias = pd.read_csv('C:\\Users\\enzo.braz\\Document\\AULA 01- ENZO GARCIA BRAZ ROCHA\\Estatisca-Descritiva\\UC2\\DATA\\data_organized_operacao_integrada_aula10-v2.csv', sep=',', encoding='utf-8')
+
+
+# Passo 3: Cria a segunda tabela (simulando o cadastro de delegados vindo do MySQL)
+df_delegados = pd.DataFrame({
+    'Regiao': ['Capital', 'Baixada Fluminense', 'Grande Niterói', 'Interior Sul', 'Interior Norte'],
+    'Coordenador': ['Del. Freitas', 'Del. Almeida', 'Del. Castro', 'Del. Borges', 'Del. Nogueira'],
+    'Orcamento_Mil': [4500.0, 3800.0, 2900.0, 2100.0, 1950.0]
+})
+
+
+
+
+# Junta as tabelas pela coluna Regiao
+df_completo = pd.merge(df_ocorrencias, df_delegados, on='Regiao', how='inner')
+
+# Mostra as 3 primeiras linhas da tabela unificada
+df_completo.head(3)
+agrupado_regiao = df.groupby('Regiao') ['Prejuizo_Estimado_Mil'].reset_index()
+
+
+
+
+
+
+# Passo 1: Isola a coluna de prejuízos e transforma em um Array do NumPy (como pede o PTD)
+serie_prejuizo = agrupado_regiao['Prejuizo_Estimado_Mil']
+array_prejuizo = serie_prejuizo.to_numpy()
+
+
+# Passo 2: Calcula Média, Mediana e o quanto elas estão distantes entre si
+mediana = np.median(array_prejuizo)
+soma = np.sum(array_prejuizo)
+media = np.mean(array_prejuizo)
+
+
+
+
+df_ranking = agrupado_regiao.sort_values(by='Prejuizo_Estimado_Mil', ascending=False)
+
+
+print(f'A soma dos prejuízos é igual a R$ {soma:.2f} mil ')
+print(f'A mediana dos prejuízos é igual a R$ {mediana:.2f} mil ')
+
+print(f'Ranking de prejuízo por Região/Coordenador:')
+print(df_ranking)
+
+
+
+
+
+plt.subplots(2, 2, figsize=(15, 10))
+
+sns.boxplot(
+    ax=axes[0, 0],
+    tick_labels=["Regiao", "Prejuizo_Estimado_Mil"],
+    patch_artist=True,
+    boxprops=dict(facecolor="#4C72B0", alpha=0.6)
+)
+axes[0,0].legend()
+axes[0,0].set_title("Prejuizo por Região")
+axes[0,0].set_ylabel("Prejuizos")
+
+sns.barplot(
+    x='soma',
+    y='Tipo_Ocorrencia',
+    palette='Blues_d',
+    ax=axes[0, 1],
+)
+axes[0, 1].set_title('Total de prejuizos por ocorrência')
+axes[0, 1].set_xlabel('Soma dos Prejuízos')
+axes[0, 1].set_ylabel('Tipo da Ocorrência')
+axes[0, 1].legend()
+
+
+
+
+assimetria = serie_prejuizo.skew()
+curtose = serie_prejuizo.kurtosis() + 3
+mediana = np.median(array_prejuizo)
+soma = np.sum(array_prejuizo)
+distancia_mm = (media - mediana) / mediana
+
+#adicionado por ulitmo \/
+sns.histplot(serie_prejuizo, bins=35, kde=True, color='#3182bd', ax=axes[1,0])
+axes[1,0].axvline(media, color='#de2d26', linestyle='--', linewidth=2, label=f'Média: R$ {media:.1f}k')
+axes[1,0].axvline(mediana, color='#2ca25f', linestyle='-', linewidth=2, label=f'Mediana: R$ {mediana:.1f}k')
+axes[1,0].set_title('Distribuição dos Prejuízos (Cauda Longa à Direita)', fontweight='bold')
+axes[1,0].set_xlabel('Prejuízo Estimado (R$ mil)')
+axes[1,0].legend()
+#adicionado por ultimo /\
+axes[1,1].axis('off')
+texto_diretoria = (
+    f"• Mediana dos prejuízos: R$ {mediana:.2f} mil\n"
+    f"• Média dos prejuízos: R$ {media:.2f} mil (+{distancia_mm:.1%})\n"
+    f"• Formato da Curva: Assimétrica Positiva (+{assimetria:.2f})\n"
+    f"• Risco de Extremos: Leptocúrtica ({curtose:.2f})\n"
+    f"{'-'*42}\n"
+    f"DECISÃO: Planejar orçamento pela Mediana\n"
+    f"e investigar as regiôes com mais casos críticos."
+)
+axes[1,1].text(0.03, 0.5, texto_diretoria, fontsize=10.5, va='center',
+             bbox=dict(boxstyle='round,pad=0.8', facecolor='#f1f5f9', edgecolor='#08519c'))
+
+plt.tight_layout()
+plt.show()
+
+
+
+
+
+#ATIVIDADE 1
+
+# Escreva aqui o código em grupo da Atividade 1 (Nível Básico):
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+
+
+
+# Passo 2: Carrega a planilha principal com 1.500 ocorrências
+df_ocorrencias = pd.read_csv('C:\\Users\\enzo.braz\\Documents\\AULA 01- ENZO GARCIA BRAZ ROCHA\\Estatisca-Descritiva\\UC2\\DATA\\data_organized_operacao_integrada_aula10-v2.csv', sep=',', encoding='utf-8')
+
+
+
+# Passo 3: Cria a segunda tabela (simulando o cadastro de delegados vindo do MySQL)
+df_delegados = pd.DataFrame({
+    'Regiao': ['Capital', 'Baixada Fluminense', 'Grande Niterói', 'Interior Sul', 'Interior Norte'],
+    'Coordenador': ['Del. Freitas', 'Del. Almeida', 'Del. Castro', 'Del. Borges', 'Del. Nogueira'],
+    'Orcamento_Mil': [4500.0, 3800.0, 2900.0, 2100.0, 1950.0]
+})
+
+
+
+
+# Junta as tabelas pela coluna Regiao
+df_completo = pd.merge(df_ocorrencias, df_delegados, on='Regiao', how='inner')
+
+# Mostra as 3 primeiras linhas da tabela unificada
+df_completo.head(3)
+df = df_completo.reset_index(drop=True)
+agrupado_regiao = df.groupby(['Regiao', 'Coordenador']) ['Prejuizo_Estimado_Mil'].count().reset_index()
+serie_prejuizo = agrupado_regiao['Prejuizo_Estimado_Mil']
+array_prejuizo = serie_prejuizo.to_numpy()
+
+
+mediana = np.median(array_prejuizo)
+soma = np.sum(array_prejuizo)
+
+
+
+df_ranking = agrupado_regiao.sort_values(by='Prejuizo_Estimado_Mil', ascending=False).reset_index(drop=True)
+
+print(f"*"*80)
+print(f'A soma dos prejuízos é igual a R$ {soma:.3f}  ')
+print(f'A mediana dos prejuízos é igual a R$ {mediana:.3f}  ')
+print(f"*"*80)
+print(f'Ranking de prejuízo por Região/Coordenador:')
+print(df_ranking)

@@ -1,0 +1,7 @@
+ID_Venda;Produto;Quantidade;Preco_Unitario;Regiao
+101;Notebook;2;3500;Sudeste
+102;Smartphone;;1200;Sul
+103;Monitor;1;800;Nordeste
+104;Notebook;1;3500;Sul
+105;Teclado;3;150;Sudeste
+106;Smartphone;2;1200;Nordeste

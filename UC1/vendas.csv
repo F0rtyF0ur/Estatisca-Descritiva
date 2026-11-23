@@ -1,0 +1,11 @@
+﻿ID_Venda,Produto,Categoria,Quantidade,Preco_Unitario,Vendedor
+1,Mouse,Perifericos,10,80,Carlos
+2,Teclado,Perifericos,5,120,Ana
+3,Monitor,Hardware,3,950,Marcos
+4,Notebook,Hardware,2,3500,Ana
+5,Headset,Perifericos,8,250,Carlos
+6,Impressora,Hardware,2,850,Julia
+7,Webcam,Perifericos,6,180,Ana
+8,SSD,Hardware,4,320,Marcos
+9,Memoria RAM,Hardware,7,280,Carlos
+10,Mouse Gamer,Perifericos,5,150,Julia
